@@ -2,6 +2,7 @@
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
 <meta name="theme-color" content="#12100f">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -43,6 +44,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--ac)}
 #msgs{display:flex;flex-direction:column;gap:8px}
 .m{display:flex;gap:8px;align-items:flex-end;max-width:88%}.m.u{align-self:flex-end;flex-direction:row-reverse}
 .m .av{width:28px;height:28px;font-size:13px}
+img.av{object-fit:cover;background:#02063a;border-radius:22%}
 .bb{padding:9px 13px;border-radius:18px;background:var(--cd);border:1px solid var(--ln);white-space:pre-wrap;overflow-wrap:anywhere}
 .m.u .bb{background:var(--me);color:var(--mt);border-color:transparent}
 .dots i{display:inline-block;width:7px;height:7px;margin:0 2px;border-radius:50%;background:var(--mu);animation:b 1s infinite}
@@ -51,7 +53,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--ac)}
 #note{position:absolute;left:12px;right:12px;bottom:12px;background:var(--tx);color:var(--bg);padding:10px 14px;border-radius:12px;font-size:13px;display:none;z-index:5}
 label.rd{margin-right:14px}label.rd input{width:auto;margin-right:4px}
 </style></head><body>
-<div id="app"><header><div class="av">D</div><div><b>Delytel Music AI</b><small>Tu manager digital · Chile 🇨🇱</small></div></header>
+<div id="app"><header><img class="av" src="logo-96.png" alt="Delytel"><div><b>Delytel Music AI</b><small>Tu manager digital · Chile 🇨🇱</small></div></header>
 <div id="main"></div><div id="note"></div>
 <nav><button data-t="home" onclick="go('home')"><span>🏠</span>Inicio</button><button data-t="swipe" onclick="go('swipe')"><span>🔥</span>Descubre</button><button data-t="chat" onclick="go('chat')"><span>💬</span>Delytel</button><button data-t="files" onclick="go('files')"><span>📁</span>Archivos</button></nav></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -89,7 +91,7 @@ el.onpointermove=e=>{if(!on)return;dx=e.clientX-x0;el.style.transform=`translate
 el.onpointerup=()=>{on=0;if(Math.abs(dx)>90)dec(L[0],dx>0?1:0);else{el.style.transition='transform .2s';el.style.transform='';el.querySelectorAll('.st').forEach(s=>s.style.setProperty('--o',0))}dx=0}}
 function dec(i,y){S.sw[i]=y;sv();const el=$('.sc:not(.bk)');if(el){el.style.transition='transform .25s';el.style.transform=`translateX(${y?500:-500}px) rotate(${y?25:-25}deg)`}setTimeout(render,230)}
 function adn(){const k=Object.keys(S.sw),y=k.filter(i=>S.sw[i]).map(i=>D[i][1]),n=k.filter(i=>!S.sw[i]).map(i=>D[i][1]);go('chat');send(`Hice el swipe. Me cabe: ${y.join('; ')||'nada'}. Descarté: ${n.join('; ')||'nada'}. ¿Qué lees de mí y por dónde partimos?`)}
-const bub=(r,c)=>{const b=$('#msgs'),d=document.createElement('div');d.className='m '+r;d.innerHTML=(r==='m'?'<div class=av>D</div>':'')+'<div class=bb></div>';d.lastChild.textContent=c;b.appendChild(d);$('.pg').scrollTop=1e9;return d.lastChild};
+const bub=(r,c)=>{const b=$('#msgs'),d=document.createElement('div');d.className='m '+r;d.innerHTML=(r==='m'?'<img class=av src=logo-96.png alt="">':'')+'<div class=bb></div>';d.lastChild.textContent=c;b.appendChild(d);$('.pg').scrollTop=1e9;return d.lastChild};
 function chatV(m){m.innerHTML=`<div class=pg><div id=msgs></div></div><div class=comp><textarea id=t rows=1 placeholder="Escríbele a Delytel…"></textarea><button class=btn onclick=send()>➤</button></div>`;
 if(!S.chat.length)bub('m',`Ey ${S.p?S.p.n:''}, ¿cómo estás? Soy Delytel, tu manager. Cuéntame qué estás armando ahora: una canción, un lanzamiento, un show… y te digo con sinceridad qué veo.`);
 S.chat.forEach(x=>bub(x.r,x.c));const t=$('#t');t.onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};t.oninput=()=>{t.style.height='auto';t.style.height=Math.min(t.scrollHeight,120)+'px'}}
