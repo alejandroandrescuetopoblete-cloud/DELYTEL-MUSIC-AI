@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#12100f">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Delytel">
+<title>Delytel Music AI · Tu manager digital</title>
+<style>
+:root{--bg:#12100f;--cd:#1d1a18;--ln:#33302c;--tx:#f5efe8;--mu:#a49b90;--ac:#ff5a36;--a2:#ffb020;--me:#ff5a36;--mt:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#faf5ee;--cd:#fff;--ln:#e8dfd2;--tx:#2a211a;--mu:#80725f}}
+:root[data-theme="light"]{--bg:#faf5ee;--cd:#fff;--ln:#e8dfd2;--tx:#2a211a;--mu:#80725f}
+:root[data-theme="dark"]{--bg:#12100f;--cd:#1d1a18;--ln:#33302c;--tx:#f5efe8;--mu:#a49b90}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#app{height:100%;display:flex;flex-direction:column;max-width:720px;margin:0 auto}
+header{padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--ln)}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--a2));display:grid;place-items:center;font-weight:800;color:#fff;flex:none}
+header b{font-size:16px;letter-spacing:.3px}header small{display:block;color:var(--mu);font-size:11.5px;margin-top:-2px}
+#main{flex:1;min-height:0;display:flex;flex-direction:column;position:relative}
+.pg{flex:1;overflow-y:auto;padding:16px}
+nav{display:flex;border-top:1px solid var(--ln);background:var(--bg)}
+nav button{flex:1;background:none;border:0;color:var(--mu);padding:9px 0 8px;font:inherit;font-size:11.5px;cursor:pointer}
+nav button span{display:block;font-size:20px}nav button.on{color:var(--ac);font-weight:700}
+.card{background:var(--cd);border:1px solid var(--ln);border-radius:18px;padding:16px;margin-bottom:14px}
+h2{margin:0 0 6px;font-size:20px}h3{margin:0 0 6px;font-size:14px;color:var(--a2);text-transform:uppercase;letter-spacing:.8px}
+p{margin:0 0 10px}.mu{color:var(--mu)}
+input,select,textarea{width:100%;background:var(--bg);color:var(--tx);border:1px solid var(--ln);border-radius:12px;padding:10px 12px;font:inherit;margin-bottom:8px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--ac)}
+.btn{background:linear-gradient(135deg,var(--ac),var(--a2));color:#fff;border:0;border-radius:12px;padding:11px 16px;font-weight:700;cursor:pointer;font:inherit;font-weight:700}
+.btn:disabled{opacity:.5}.ghost{background:none;border:1px solid var(--ln);color:var(--tx);border-radius:12px;padding:10px 14px;cursor:pointer;font:inherit;margin:0 6px 8px 0}
+.row{display:flex;flex-wrap:wrap}
+.deck{position:relative;height:330px;margin:6px 0 14px}
+.sc{position:absolute;inset:0;border-radius:24px;padding:26px 22px;display:flex;flex-direction:column;justify-content:center;text-align:center;background:var(--cd);border:1px solid var(--ln);touch-action:pan-y;user-select:none;cursor:grab}
+.sc.bk{transform:scale(.94) translateY(12px);opacity:.6}
+.sc .e{font-size:64px}.sc h2{font-size:22px;margin:10px 0}
+.st{position:absolute;top:18px;font-weight:900;border:3px solid;border-radius:10px;padding:2px 10px;opacity:var(--o,0);letter-spacing:1px}
+.st.y{left:18px;color:#3ddc84;transform:rotate(-12deg)}.st.n{right:18px;color:#ff4d4d;transform:rotate(12deg)}
+.sb{display:flex;justify-content:center;gap:22px}.sb button{width:60px;height:60px;border-radius:50%;border:1px solid var(--ln);background:var(--cd);font-size:26px;cursor:pointer}
+#msgs{display:flex;flex-direction:column;gap:8px}
+.m{display:flex;gap:8px;align-items:flex-end;max-width:88%}.m.u{align-self:flex-end;flex-direction:row-reverse}
+.m .av{width:28px;height:28px;font-size:13px}
+.bb{padding:9px 13px;border-radius:18px;background:var(--cd);border:1px solid var(--ln);white-space:pre-wrap;overflow-wrap:anywhere}
+.m.u .bb{background:var(--me);color:var(--mt);border-color:transparent}
+.dots i{display:inline-block;width:7px;height:7px;margin:0 2px;border-radius:50%;background:var(--mu);animation:b 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}@keyframes b{50%{transform:translateY(-4px)}}
+.comp{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--ln);align-items:flex-end}.comp textarea{margin:0;max-height:120px}
+#note{position:absolute;left:12px;right:12px;bottom:12px;background:var(--tx);color:var(--bg);padding:10px 14px;border-radius:12px;font-size:13px;display:none;z-index:5}
+label.rd{margin-right:14px}label.rd input{width:auto;margin-right:4px}
+</style></head><body>
+<div id="app"><header><div class="av">D</div><div><b>Delytel Music AI</b><small>Tu manager digital · Chile 🇨🇱</small></div></header>
+<div id="main"></div><div id="note"></div>
+<nav><button data-t="home" onclick="go('home')"><span>🏠</span>Inicio</button><button data-t="swipe" onclick="go('swipe')"><span>🔥</span>Descubre</button><button data-t="chat" onclick="go('chat')"><span>💬</span>Delytel</button><button data-t="files" onclick="go('files')"><span>📁</span>Archivos</button></nav></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const SYS=`Eres Delytel, el manager musical del movimiento urbano chileno (reguetón, trap, drill, hip hop, dembow) dentro de la app Delytel Music AI. Hablas como un manager real y cercano por mensajes: español de Chile natural y profesional (un "oye" u "ojo" ocasional, sin caricatura), mensajes cortos (2 a 6 líneas), sin títulos, sin negritas ni listas salvo que te pidan un plan. Haz UNA pregunta a la vez. Si te preguntan directamente, reconoce que eres el manager digital (IA) de Delytel.
+Dominas marketing musical, producción (beats, mezcla, master, estructura), audiovisual (videoclips, shorts, TikTok/Reels), lanzamientos, crecimiento por etapas, booking y cachés, contratos manager-artista, SCD, ISRC, splits, publishing, distribución, Content ID, playlisting, prensa, marcas, finanzas y equipo, con el contexto del mercado chileno (discotecas, municipios, productoras, radios, WhatsApp que hay que respaldar por escrito).
+REGLA CLAVE: nunca halagues por halagar. Ante una idea: di qué funciona, qué es débil o genérico, cuestiona con una pregunta incisiva y propón una versión mejor y concreta. Si es mala, dilo con respeto y claridad. Usa la memoria que tienes del artista y recuérdasela de forma natural. No prometas fama; trabaja con metas medibles; separa el dinero del artista del del manager. No eres abogado ni contador (valida lo legal con un profesional). No inventes cifras exactas: da rangos referenciales. Rechaza comprar seguidores/streams o plagio. Si piden algo ajeno a la música, redirige amable. Si el artista necesita un documento, plan, presupuesto o cálculo, dile que lo genere en la pestaña Archivos.`;
+const D=[["🔥","Estética callejera y cruda","Visuales de barrio, grano, luz natural, cero filtro."],["💎","Estética lujo y brillo","Joyas, autos, moda; un mundo aspiracional."],["🌑","Misterio y poca exposición","Que te conozcan por el sonido antes que por la cara."],["🎞️","Videoclip narrativo","Mini película con personajes y giro final."],["📱","Un video diario por 60 días","Constancia brutal en TikTok para ver qué pega."],["🤝","Colab con alguien más grande, aunque cobre","Invertir en visibilidad."],["🎤","Mini gira de 10 shows","Discotecas y municipios para foguearte en vivo."],["💿","EP de 5 temas antes que singles","Mostrar un universo completo."],["🇨🇱","Chilenismos fuertes y referencias locales","Identidad 100% de acá."],["🌎","Sonido más internacional","Pensar en playlists latinas y afuera."],["📻","Radios y medios locales","Prensa tradicional y relaciones con medios."],["🎬","Detrás de cámaras del estudio","Mostrar el proceso y la gente."],["🧢","Merch propio desde temprano","Ropa, gorras, identidad."],["🛠️","Primero producción y mezcla","Calidad de sonido antes que videos."]];
+const T=[["Plan de lanzamiento","docx","Plan de lanzamiento de 4 semanas para mi próximo single, con tareas por semana, contenido y responsables."],["Presupuesto de lanzamiento","xlsx","Presupuesto de lanzamiento en CLP (producción, mezcla, master, videoclip, publicidad, imprevistos) con fórmulas de totales y 10% de imprevistos."],["Press kit (1 página)","pdf","Press kit de una página: bio, estilo, hitos, contacto y enlaces como campos a completar."],["Contrato manager–artista","docx","Borrador de contrato manager-artista para Chile: duración, comisión, exclusividad, gastos, rendición de cuentas, término y aviso de revisión por abogado."],["Calendario de contenido","xlsx","Calendario de contenido de 4 semanas para TikTok/Reels/Shorts con fecha relativa, formato, idea, objetivo y estado."],["Split sheet","pdf","Acuerdo de splits entre compositores, productor e intérprete, con campos para completar y firmas."]];
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let S={p:null,chat:[],sw:{},notes:'',topic:'',last:0,prev:0,files:[],n:0},busy=false,tab='home',tm;
+const note=t=>{const n=$('#note');n.textContent=t;n.style.display='block';clearTimeout(window._n);window._n=setTimeout(()=>n.style.display='none',4500)};
+function sv(){clearTimeout(tm);tm=setTimeout(()=>{try{localStorage.setItem('delytel_v1',JSON.stringify(S))}catch(e){}},300)}
+function go(t){tab=t;render()}
+function render(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===tab));({home,swipe,chat:chatV,files:filesV})[tab]($('#main'))}
+const opt=a=>a.map(x=>`<option>${x}</option>`).join('');
+function home(m){const p=S.p;
+if(!p){m.innerHTML=`<div class=pg><div class=card><h2>Ey, mucho gusto 👋</h2><p>Soy <b>Delytel</b>, tu manager digital. Antes de partir quiero conocerte un poco.</p><input id=pn placeholder="Tu nombre artístico"><select id=pg>${opt(['Reguetón','Trap','Drill','Hip hop','Dembow','Urbano / mezcla'])}</select><input id=pc placeholder="Ciudad o comuna"><select id=pe>${opt(['Recién empezando','Ya tengo música lanzada','Ya hago shows','Quiero dar el salto'])}</select><button class=btn onclick=onb()>Partamos</button></div></div>`;return}
+const h=new Date().getHours(),g=h<6?'Ey, trasnochando':h<12?'Buenos días':h<20?'Buenas tardes':'Buenas noches',d=S.prev?Math.floor((Date.now()-S.prev)/864e5):null;
+const l=!S.prev?'Primera vez por acá, vamos conociéndonos.':d>=1?`Hace ${d} día${d>1?'s':''} que no hablábamos.`:'Qué bueno verte de nuevo hoy.';
+const pend=D.length-Object.keys(S.sw).length;
+m.innerHTML=`<div class=pg><div class=card><h2>${g}, ${esc(p.n)} 👋</h2><p>${l} ${S.topic?`La última vez quedamos viendo: <b>“${esc(S.topic)}”</b>. ¿Seguimos con eso o hay algo nuevo?`:'Cuéntame qué estás armando y partimos.'}</p><div class=row><button class=btn onclick="go('chat')" style="margin-right:8px">Hablar con Delytel</button><button class=ghost onclick="go('swipe')">🔥 Descubre${pend?` (${pend})`:''}</button><button class=ghost onclick="go('files')">📁 Crear archivo</button></div></div>
+<div class=card><h3>Lo que Delytel sabe de ti</h3><p style="white-space:pre-wrap">${S.notes?esc(S.notes):`Artista: ${esc(p.n)} · ${esc(p.g)} · ${esc(p.c||'Chile')}\nEtapa: ${esc(p.e)}\nAún nos estamos conociendo; mientras más hablemos, mejor te voy a entender.`}</p><button class=ghost onclick=forget()>Borrar memoria</button></div></div>`}
+function onb(){const n=$('#pn').value.trim();if(!n){note('Dime tu nombre artístico');return}S.p={n,g:$('#pg').value,c:$('#pc').value.trim(),e:$('#pe').value};sv();render()}
+function forget(){if(!confirm('¿Borrar todo lo que Delytel recuerda (notas y conversación)?'))return;S.notes='';S.topic='';S.chat=[];sv();render()}
+function swipe(m){const L=D.map((_,i)=>i).filter(i=>!(i in S.sw));
+if(!L.length){const y=Object.keys(S.sw).filter(k=>S.sw[k]).map(k=>D[k][1]);m.innerHTML=`<div class=pg><div class=card><h2>Tu ADN artístico 🧬</h2><p>Esto es lo que te mueve:</p><p>${y.length?y.map(x=>'✅ '+esc(x)).join('<br>'):'Descartaste todo, ¡eres exigente!'}</p><button class=btn onclick=adn()>Analizarlo con Delytel</button> <button class=ghost onclick="S.sw={};sv();render()">Repetir</button></div></div>`;return}
+const c=i=>`<div class="sc" data-i=${i}><span class="st y">ME CABE</span><span class="st n">NEL</span><div class=e>${D[i][0]}</div><h2>${esc(D[i][1])}</h2><p class=mu>${esc(D[i][2])}</p></div>`;
+m.innerHTML=`<div class=pg><p class=mu>Desliza a la derecha lo que te late y a la izquierda lo que no. Delytel aprende de tus gustos.</p><div class=deck>${L[1]!=null?c(L[1]).replace('class="sc"','class="sc bk"'):''}${c(L[0])}</div><div class=sb><button onclick="dec(${L[0]},0)">✕</button><button onclick="dec(${L[0]},1)">♥</button></div></div>`;
+const el=m.querySelector('.sc:not(.bk)');let x0=0,dx=0,on=0;
+el.onpointerdown=e=>{on=1;x0=e.clientX;el.setPointerCapture(e.pointerId);el.style.transition='none'};
+el.onpointermove=e=>{if(!on)return;dx=e.clientX-x0;el.style.transform=`translateX(${dx}px) rotate(${dx/18}deg)`;el.querySelector(dx>0?'.y':'.n').style.setProperty('--o',Math.min(Math.abs(dx)/90,1))};
+el.onpointerup=()=>{on=0;if(Math.abs(dx)>90)dec(L[0],dx>0?1:0);else{el.style.transition='transform .2s';el.style.transform='';el.querySelectorAll('.st').forEach(s=>s.style.setProperty('--o',0))}dx=0}}
+function dec(i,y){S.sw[i]=y;sv();const el=$('.sc:not(.bk)');if(el){el.style.transition='transform .25s';el.style.transform=`translateX(${y?500:-500}px) rotate(${y?25:-25}deg)`}setTimeout(render,230)}
+function adn(){const k=Object.keys(S.sw),y=k.filter(i=>S.sw[i]).map(i=>D[i][1]),n=k.filter(i=>!S.sw[i]).map(i=>D[i][1]);go('chat');send(`Hice el swipe. Me cabe: ${y.join('; ')||'nada'}. Descarté: ${n.join('; ')||'nada'}. ¿Qué lees de mí y por dónde partimos?`)}
+const bub=(r,c)=>{const b=$('#msgs'),d=document.createElement('div');d.className='m '+r;d.innerHTML=(r==='m'?'<div class=av>D</div>':'')+'<div class=bb></div>';d.lastChild.textContent=c;b.appendChild(d);$('.pg').scrollTop=1e9;return d.lastChild};
+function chatV(m){m.innerHTML=`<div class=pg><div id=msgs></div></div><div class=comp><textarea id=t rows=1 placeholder="Escríbele a Delytel…"></textarea><button class=btn onclick=send()>➤</button></div>`;
+if(!S.chat.length)bub('m',`Ey ${S.p?S.p.n:''}, ¿cómo estás? Soy Delytel, tu manager. Cuéntame qué estás armando ahora: una canción, un lanzamiento, un show… y te digo con sinceridad qué veo.`);
+S.chat.forEach(x=>bub(x.r,x.c));const t=$('#t');t.onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};t.oninput=()=>{t.style.height='auto';t.style.height=Math.min(t.scrollHeight,120)+'px'}}
+const clean=s=>s.replace(/[*#]/g,'');
+function ctx(){const k=Object.keys(S.sw),y=k.filter(i=>S.sw[i]).map(i=>D[i][1]).join('; '),n=k.filter(i=>!S.sw[i]).map(i=>D[i][1]).join('; '),p=S.p||{};
+return SYS+`\n\nARTISTA: ${p.n||'?'}, ${p.g||'?'}, ${p.c||'?'}, etapa: ${p.e||'?'}.\nMEMORIA: ${S.notes||'aún nada'}\nSWIPE - le gustó: ${y||'-'} | descartó: ${n||'-'}\nAhora: ${new Date().toLocaleString('es-CL')}.`}
+async function send(txt){const t=$('#t'),v=(typeof txt==='string'?txt:t&&t.value||'').trim();if(!v||busy)return;if(!sample){note('Sin conexión. Revisa tu internet');return}
+if(t){t.value='';t.style.height='auto'}busy=1;bub('u',v);S.chat.push({r:'u',c:v});const b=bub('m','');b.innerHTML='<span class=dots><i></i><i></i><i></i></span>';
+let turns=S.chat.slice(-16).map(x=>({role:x.r==='u'?'user':'assistant',content:x.c}));while(turns[0]&&turns[0].role!=='user')turns.shift();turns[0].content=ctx()+'\n\n--- CONVERSACIÓN ---\n'+turns[0].content;
+try{const r=await sample(turns,{cache:false,onText:({text})=>{if(b.isConnected){b.textContent=clean(text);$('.pg').scrollTop=1e9}}});const o=clean(r.text);b.textContent=o;S.chat.push({r:'m',c:o});S.chat=S.chat.slice(-30);S.n++;sv();if(S.n%2===0)mem()}
+catch(e){b.parentNode.remove();S.chat.pop();note(e&&e.code==='not_granted'?'No pude conectar con Delytel.':e&&e.code==='rate_limited'?'Muchos mensajes seguidos, espera un momento.':'No pude responder. Intenta de nuevo.')}
+busy=0}
+async function mem(){try{const j=await sample.json(`Eres Delytel, manager musical. Actualiza tus notas privadas sobre el artista.\nNotas actuales: ${S.notes||'ninguna'}\nÚltimos mensajes:\n${S.chat.slice(-8).map(x=>(x.r==='u'?'Artista: ':'Delytel: ')+x.c).join('\n')}\nResponde SOLO JSON: {"notes":"máximo 8 líneas cortas con hechos, metas, decisiones, pendientes y gustos del artista","topic":"tema de la última conversación en máximo 8 palabras"}`,{modelTier:'quick',cache:false});if(j&&j.notes){S.notes=String(j.notes).slice(0,1200);S.topic=String(j.topic||'').slice(0,80);sv()}}catch(e){}}
+function filesV(m){m.innerHTML=`<div class=pg><div class=card><h2>Archivos 📁</h2><p class=mu>Pídele a Delytel documentos y cálculos ya personalizados con lo que sabe de ti.</p><div class=row>${T.map((x,i)=>`<button class=ghost onclick=tpl(${i})>${x[0]}</button>`).join('')}</div><textarea id=req rows=4 placeholder="O describe el archivo que necesitas…"></textarea><div style="margin-bottom:10px"><label class=rd><input type=radio name=f value=docx checked>Word</label><label class=rd><input type=radio name=f value=pdf>PDF</label><label class=rd><input type=radio name=f value=xlsx>Excel</label></div><button class=btn id=gb onclick=gen()>Crear archivo</button></div>${S.files.length?`<div class=card><h3>Creados</h3>${S.files.slice(-8).reverse().map(f=>`<p>📄 ${esc(f)}</p>`).join('')}</div>`:''}</div>`}
+function tpl(i){$('#req').value=T[i][2];document.querySelector(`input[value=${T[i][1]}]`).checked=true}
+const X=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])),pl=s=>String(s).replace(/[–—]/g,'-').replace(/[“”]/g,'"').replace(/[‘’]/g,"'").replace(/[^\x20-\x7E\u00A0-\u00FF\n]/g,'');
+const P=(t,o={})=>`<w:p><w:pPr><w:spacing w:after="${o.a||120}"/>${o.u?'<w:ind w:left="540" w:hanging="270"/>':''}</w:pPr><w:r><w:rPr>${o.b?'<w:b/>':''}${o.c?`<w:color w:val="${o.c}"/>`:''}<w:sz w:val="${o.s||22}"/></w:rPr><w:t xml:space="preserve">${X(t)}</w:t></w:r></w:p>`;
+const bl=j=>(j.blocks||[]);
+function mkDocx(j){const z=new JSZip(),H='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+z.file('[Content_Types].xml',H+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>');
+z.file('_rels/.rels',H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
+let b=P(j.title,{b:1,s:40,c:'E8431F',a:240});bl(j).forEach(x=>{if(x.h)b+=P(x.h,{b:1,s:28,c:'333333',a:100});if(x.p)b+=P(x.p);if(x.ul)x.ul.forEach(i=>b+=P('•  '+i,{u:1,a:60}))});
+z.file('word/document.xml',H+`<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${b}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134"/></w:sectPr></w:body></w:document>`);return z.generateAsync({type:'arraybuffer'})}
+function mkPdf(j){const d=new jspdf.jsPDF({unit:'pt',format:'a4'});let y=60;const w=(t,sz,b,c,ind=0)=>{d.setFont('helvetica',b?'bold':'normal');d.setFontSize(sz);d.setTextColor(...c);d.splitTextToSize(pl(t),475-ind).forEach(l=>{if(y>785){d.addPage();y=60}d.text(l,60+ind,y);y+=sz*1.4});y+=4};
+w(j.title,22,1,[232,67,31]);y+=6;bl(j).forEach(x=>{if(x.h)w(x.h,14,1,[40,40,40]);if(x.p)w(x.p,11,0,[30,30,30]);if(x.ul)x.ul.forEach(i=>w('- '+i,11,0,[30,30,30],10))});return d.output('arraybuffer')}
+function mkXlsx(j){const wb=XLSX.utils.book_new();(j.sheets||[]).forEach(s=>{const ws=XLSX.utils.aoa_to_sheet(s.rows.map(r=>r.map(c=>typeof c==='string'&&c[0]==='='?{t:'n',f:c.slice(1)}:c)));ws['!cols']=(s.rows[0]||[]).map((_,i)=>({wch:Math.min(42,Math.max(11,...s.rows.map(r=>String(r[i]??'').length)))}));XLSX.utils.book_append_sheet(wb,ws,String(s.name||'Hoja').replace(/[\\\/?*\[\]:]/g,'').slice(0,30))});wb.Workbook={CalcPr:{fullCalcOnLoad:true}};return XLSX.write(wb,{type:'array',bookType:'xlsx'})}
+async function gen(){const req=$('#req').value.trim(),f=document.querySelector('input[name=f]:checked').value;if(!req){note('Cuéntame qué archivo necesitas');return}
+if(!sample||!dl){note('Sin conexión. Revisa tu internet');return}if((f==='docx'&&!window.JSZip)||(f==='pdf'&&!window.jspdf)||(f==='xlsx'&&!window.XLSX)){note('No cargó el generador de '+f+'. Revisa tu conexión.');return}
+const gb=$('#gb');gb.disabled=1;gb.textContent='Delytel lo está armando…';
+const shape=f==='xlsx'?'{"title":"..","sheets":[{"name":"..","rows":[["Col1","Col2"],["a",1],["Total","=SUM(B2:B5)"]]}]}. Primera fila con encabezados, números como número (montos en CLP), y fórmulas de Excel (texto que parte con "=") para totales y cálculos.':'{"title":"..","blocks":[{"h":"sección"},{"p":"párrafo"},{"ul":["punto","punto"]}]}. Contenido real, específico para Chile y para este artista, sin relleno ni placeholders genéricos salvo datos que solo el artista conoce (márcalos como [completar]).';
+try{const j=await sample.json(`Eres Delytel, manager musical chileno. Datos del artista: ${JSON.stringify(S.p)}. Memoria: ${S.notes||'-'}. Últimos mensajes: ${S.chat.slice(-6).map(x=>x.c).join(' | ').slice(0,900)}.\nCrea este archivo (${f}): ${req}\nResponde SOLO JSON con esta forma: ${shape}`,{cache:false});
+const data=f==='docx'?await mkDocx(j):f==='pdf'?mkPdf(j):mkXlsx(j),nm=(String(j.title||'archivo').normalize('NFD').replace(/[^\w ]/g,'').trim().replace(/\s+/g,'-').slice(0,50)||'archivo')+'.'+f;
+await dl.save({filename:nm,data});S.files.push(nm);sv();note('Listo: '+nm);filesV($('#main'))}
+catch(e){note(e&&e.code==='declined'?'Descarga cancelada.':'No pude armar el archivo. Intenta de nuevo o descríbelo distinto.');gb.disabled=0;gb.textContent='Crear archivo'}}
+const sample=async(turns,o={})=>{let r;try{r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:turns})})}catch(e){throw{code:'offline'}}
+if(!r.ok)throw{code:r.status===429?'rate_limited':'error'};const j=await r.json(),t=j.text||'';if(!t)throw{code:'empty'};
+if(o.onText){const w=t.split(/(\s+)/);let s='';for(let i=0;i<w.length;i++){s+=w[i];if(i%4===0){o.onText({text:s});await new Promise(k=>setTimeout(k,18))}}}
+return{text:t}};
+sample.json=async p=>{const t=(await sample([{role:'user',content:p+'\nResponde únicamente con el JSON, sin texto extra ni ```.'}])).text;return JSON.parse(t.slice(t.indexOf('{'),t.lastIndexOf('}')+1))};
+const dl={save:async({filename,data})=>{const u=URL.createObjectURL(data instanceof Blob?data:new Blob([data])),a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),5000)}};
+try{const r=localStorage.getItem('delytel_v1');if(r)S={...S,...JSON.parse(r)}}catch(e){}
+S.prev=S.last||0;S.last=Date.now();sv();render();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script></body></html>
